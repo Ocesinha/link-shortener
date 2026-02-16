@@ -68,7 +68,7 @@
 
 1. **Clone o repositório**
    ```bash
-   git clone https://github.com/seu-usuario/encurta.git
+   git clone https://github.com/Ocesinha/link-shortener.git
    cd encurta
    ```
 
@@ -283,7 +283,7 @@ Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 **César**
 
-- GitHub: [@Ohcesinha](https://github.com/Ohcesinha)
+- GitHub: [@Ocesinha](https://github.com/Ocesinha)
 
 ---
 
