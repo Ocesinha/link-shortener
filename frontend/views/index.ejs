@@ -1,0 +1,186 @@
+<%- include('includes/header') %>
+<%- include('includes/navbar') %>
+<%- include('includes/notifications') %>
+
+<main class="main-content">
+  <section class="hero">
+    <h1 class="hero-title">
+      Encurte seus <span class="gradient-text">links</span> em segundos
+    </h1>
+    <p class="hero-subtitle">
+      Transforme URLs longas em links curtos e fáceis de compartilhar. 
+      Rápido, simples e totalmente gratuito.
+    </p>
+
+    <div class="shortener-card">
+      <form class="shortener-form" id="shortenerForm" action="/shorten" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <div class="form-group">
+          <label for="urlInput" class="form-label">
+            <i class="bi bi-link-45deg"></i> Cole sua URL aqui
+          </label>
+          <div class="input-with-icon">
+            <i class="bi bi-link-45deg input-icon"></i>
+            <input 
+              type="url" 
+              id="urlInput" 
+              name="url" 
+              class="form-input" 
+              placeholder="https://exemplo.com/sua-url-muito-longa-aqui"
+              required
+            >
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="customAlias" class="form-label">
+            <i class="bi bi-pencil"></i> Alias personalizado (opcional)
+          </label>
+          <div class="input-with-icon">
+            <i class="bi bi-pencil input-icon"></i>
+            <input 
+              type="text" 
+              id="customAlias" 
+              name="alias" 
+              class="form-input" 
+              placeholder="meu-link-legal"
+              pattern="[a-zA-Z0-9-_]+"
+            >
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <i class="bi bi-scissors"></i> Encurtar Link
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <% if (user && links.length > 0) { %>
+  <section class="user-links-section">
+    <div class="container">
+      <h2 class="section-title">
+        <i class="bi bi-list-ul"></i> Meus Links Encurtados
+      </h2>
+      <div class="links-grid">
+        <% links.forEach(link => { %>
+          <div class="link-card">
+            <div class="link-header">
+              <div class="link-url">
+                <i class="bi bi-link-45deg"></i>
+                <a href="<%= link.url %>" target="_blank" rel="noopener" title="<%= link.url %>">
+                  <%= link.url.length > 50 ? link.url.substring(0, 50) + '...' : link.url %>
+                </a>
+              </div>
+            </div>
+            <div class="link-short">
+              <div class="short-url-container">
+                <i class="bi bi-scissors"></i>
+                <input 
+                  type="text" 
+                  class="short-url-input" 
+                  value="http://localhost:3000/link/<%= link.shortUrl %>" 
+                  readonly
+                  id="short-<%= link.id %>"
+                >
+                <button 
+                  class="btn-copy" 
+                  onclick="copyToClipboard('short-<%= link.id %>')"
+                  title="Copiar link"
+                >
+                  <i class="bi bi-clipboard"></i>
+                </button>
+              </div>
+            </div>
+            <div class="link-stats">
+              <div class="stat-item">
+                <i class="bi bi-eye"></i>
+                <span><%= link.clicks %> <%= link.clicks === 1 ? 'visita' : 'visitas' %></span>
+              </div>
+              <div class="stat-item">
+                <i class="bi bi-calendar"></i>
+                <span><%= new Date(link.createdAt).toLocaleDateString('pt-BR') %></span>
+              </div>
+            </div>
+            <div class="link-actions">
+              <form action="/delete/<%= link.id %>" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este link?')">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button type="submit" class="btn-delete">
+                  <i class="bi bi-trash"></i> Deletar
+                </button>
+              </form>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+  <% } %>
+
+  <section class="features" id="features">
+    <div class="feature-card">
+      <span class="feature-icon">
+        <i class="bi bi-lightning-charge-fill"></i>
+      </span>
+      <h3 class="feature-title">Super Rápido</h3>
+      <p class="feature-description">
+        Encurte seus links em milissegundos. Nossa infraestrutura garante velocidade máxima.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">
+        <i class="bi bi-shield-lock-fill"></i>
+      </span>
+      <h3 class="feature-title">Seguro</h3>
+      <p class="feature-description">
+        Seus links são protegidos com criptografia de ponta a ponta e proteção contra spam.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">
+        <i class="bi bi-graph-up-arrow"></i>
+      </span>
+      <h3 class="feature-title">Análises</h3>
+      <p class="feature-description">
+        Acompanhe cliques, localizações e muito mais com nossas ferramentas de análise.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">
+        <i class="bi bi-palette-fill"></i>
+      </span>
+      <h3 class="feature-title">Personalizável</h3>
+      <p class="feature-description">
+        Crie links com aliases personalizados que refletem sua marca ou conteúdo.
+      </p>
+    </div>
+  </section>
+</main>
+
+<script>
+  function copyToClipboard(elementId) {
+    const input = document.getElementById(elementId);
+    input.select();
+    input.setSelectionRange(0, 99999); // Para mobile
+    
+    navigator.clipboard.writeText(input.value).then(() => {
+      const button = input.nextElementSibling;
+      const originalHTML = button.innerHTML;
+      button.innerHTML = '<i class="bi bi-check-lg"></i>';
+      button.classList.add('copied');
+      
+      setTimeout(() => {
+        button.innerHTML = originalHTML;
+        button.classList.remove('copied');
+      }, 2000);
+    }).catch(err => {
+      console.error('Erro ao copiar:', err);
+      alert('Erro ao copiar link');
+    });
+  }
+</script>
+
+<%- include('includes/footer') %>

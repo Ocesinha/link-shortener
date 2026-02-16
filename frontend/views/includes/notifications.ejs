@@ -1,0 +1,55 @@
+<% if (typeof success !== 'undefined' && success) { %>
+  <div class="notification notification-success" id="notification">
+    <div class="notification-content">
+      <div class="notification-icon">
+        <i class="bi bi-check-circle-fill"></i>
+      </div>
+      <div class="notification-message">
+        <strong>Sucesso!</strong>
+        <p><%= success %></p>
+      </div>
+      <button class="notification-close" onclick="closeNotification()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+  </div>
+<% } %>
+
+<% if (typeof error !== 'undefined' && error) { %>
+  <div class="notification notification-error" id="notification">
+    <div class="notification-content">
+      <div class="notification-icon">
+        <i class="bi bi-exclamation-circle-fill"></i>
+      </div>
+      <div class="notification-message">
+        <strong>Erro!</strong>
+        <p><%= error %></p>
+      </div>
+      <button class="notification-close" onclick="closeNotification()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+  </div>
+<% } %>
+
+<script>
+  function closeNotification() {
+    const notification = document.getElementById('notification');
+    if (notification) {
+      notification.classList.add('notification-hidden');
+      setTimeout(() => {
+        notification.remove();
+      }, 300);
+    }
+  }
+
+  // Auto-close após 5 segundos
+  window.addEventListener('DOMContentLoaded', () => {
+    const notification = document.getElementById('notification');
+    if (notification) {
+      setTimeout(() => {
+        closeNotification();
+      }, 5000);
+    }
+  });
+</script>

@@ -1,0 +1,235 @@
+/* User Links Section */
+.user-links-section {
+  padding: 4rem 0;
+  background: var(--bg-primary);
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 2.5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.section-title i {
+  color: var(--primary-purple);
+  font-size: 2rem;
+}
+
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.link-card {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.link-card:hover {
+  border-color: var(--primary-purple);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.15);
+  transform: translateY(-2px);
+}
+
+.link-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.link-url {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.link-url i {
+  color: var(--primary-purple);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.link-url a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.link-url a:hover {
+  color: var(--primary-purple);
+}
+
+.link-short {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+
+.short-url-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.short-url-container i {
+  color: var(--primary-purple);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.short-url-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--primary-purple);
+  font-weight: 600;
+  font-size: 0.95rem;
+  outline: none;
+  cursor: text;
+  padding: 0;
+  font-family: 'Courier New', monospace;
+}
+
+.btn-copy {
+  background: var(--primary-purple);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.btn-copy:hover {
+  background: var(--primary-purple-dark);
+  transform: scale(1.05);
+}
+
+.btn-copy.copied {
+  background: var(--success);
+}
+
+.btn-copy i {
+  font-size: 1rem;
+}
+
+.link-stats {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.stat-item i {
+  color: var(--primary-purple);
+  font-size: 1rem;
+}
+
+.link-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-delete {
+  background: transparent;
+  color: var(--error);
+  border: 2px solid var(--error);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.btn-delete:hover {
+  background: var(--error);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+}
+
+.btn-delete i {
+  font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .links-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .link-card {
+    padding: 1.25rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .link-stats {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .short-url-input {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-links-section {
+    padding: 2rem 0;
+  }
+
+  .link-card {
+    padding: 1rem;
+  }
+
+  .short-url-container {
+    gap: 0.5rem;
+  }
+
+  .btn-copy {
+    padding: 0.4rem 0.6rem;
+  }
+}

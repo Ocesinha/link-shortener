@@ -1,0 +1,35 @@
+<header class="header">
+  <div class="header-container">
+    <a href="/" class="logo">
+      <i class="bi bi-link-45deg"></i> Encurta
+    </a>
+    <div class="nav-wrapper">
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/"><i class="bi bi-house-door"></i> Home</a></li>
+          <li><a href="#features"><i class="bi bi-star"></i> Recursos</a></li>
+          <li><a href="#about"><i class="bi bi-info-circle"></i> Sobre</a></li>
+        </ul>
+      </nav>
+      <% if(!user) { %>
+      <div class="nav-buttons">
+        <a href="/login" class="btn-secondary">
+          <i class="bi bi-box-arrow-in-right"></i> Login
+        </a>
+        <a href="/register" class="btn-primary">
+          <i class="bi bi-person-plus"></i> Cadastrar
+        </a>
+      </div>
+      <% } else { %>
+      <div class="nav-buttons">
+        <span class="user-greeting">
+          <i class="bi bi-person-circle"></i> Olá, <%= user.name.split(' ')[0] %>
+        </span>
+        <a href="/logout" class="btn-secondary">
+          <i class="bi bi-box-arrow-right"></i> Sair
+        </a>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</header>

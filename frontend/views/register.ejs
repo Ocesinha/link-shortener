@@ -1,0 +1,135 @@
+<%- include('includes/header-auth') %>
+<%- include('includes/notifications') %>
+
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-icon">
+        <i class="bi bi-person-plus-fill"></i>
+      </div>
+      <h1 class="auth-title">Crie sua Conta</h1>
+      <p class="auth-subtitle">Cadastre-se para começar a encurtar seus links</p>
+    </div>
+
+    <form class="auth-form" action="/register" method="POST">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <div class="form-group">
+        <label for="name" class="form-label">
+          <i class="bi bi-person"></i> Nome Completo
+        </label>
+        <div class="input-with-icon">
+          
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            class="form-input" 
+            placeholder="Seu nome"
+            required
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">
+          <i class="bi bi-envelope"></i> E-mail
+        </label>
+        <div class="input-with-icon">
+         
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            class="form-input" 
+            placeholder="seu@email.com"
+            required
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">
+          <i class="bi bi-lock"></i> Senha
+        </label>
+        <div class="input-with-icon password-toggle">
+          
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            class="form-input" 
+            placeholder="••••••••"
+            minlength="6"
+            required
+          >
+          <button type="button" class="password-toggle-btn" onclick="togglePassword('password')">
+            <i class="bi bi-eye" id="password-icon"></i>
+          </button>
+        </div>
+        <small class="form-hint">
+          <i class="bi bi-info-circle"></i> Mínimo de 6 caracteres
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword" class="form-label">
+          <i class="bi bi-shield-lock"></i> Confirmar Senha
+        </label>
+        <div class="input-with-icon password-toggle">
+          
+          <input 
+            type="password" 
+            id="confirmPassword" 
+            name="confirmPassword" 
+            class="form-input" 
+            placeholder="••••••••"
+            minlength="6"
+            required
+          >
+          <button type="button" class="password-toggle-btn" onclick="togglePassword('confirmPassword')">
+            <i class="bi bi-eye" id="confirmPassword-icon"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="terms" name="terms" required>
+        <label for="terms">
+          <i class="bi bi-check-circle"></i> Aceito os 
+          <a href="#terms">termos de uso</a> e 
+          <a href="#privacy">política de privacidade</a>
+        </label>
+      </div>
+
+      <button type="submit" class="auth-submit">
+        <i class="bi bi-rocket-takeoff"></i> Criar Conta
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p class="auth-footer-text">
+        Já tem uma conta? 
+        <a href="/login" class="auth-footer-link">
+          <i class="bi bi-box-arrow-in-right"></i> Entrar
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function togglePassword(inputId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(inputId + '-icon');
+    
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.className = 'bi bi-eye-slash';
+    } else {
+      input.type = 'password';
+      icon.className = 'bi bi-eye';
+    }
+  }
+</script>
+
+<%- include('includes/footer-auth') %>
