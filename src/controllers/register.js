@@ -22,7 +22,7 @@ async function register(req, res) {
     return res.cookie('error', 'Nome deve ter entre 3 e 50 caracteres', { maxAge: 60000, httpOnly: true }).redirect('/register');
   }
   try {
-    const emailExist = await prisma.user.findunique({ where: { email } });
+    const emailExist = await prisma.user.findUnique({ where: { email } });
     if (emailExist) {
       return res.cookie('error', 'E-mail já cadastrado', { maxAge: 60000, httpOnly: true }).redirect('/register');
     }
